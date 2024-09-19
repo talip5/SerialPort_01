@@ -14,6 +14,7 @@ namespace SerialPort_01
 {
     public partial class Form1 : Form
     {
+        public int number = 0;
         public Form1()
         {
             InitializeComponent();
@@ -84,13 +85,17 @@ namespace SerialPort_01
         public delegate void verigoster(string s);
 
         public void textyaz(string s)
-        {
+        {   
+            textBox2.Clear();
             textBox2.Text += s;
+            this.Text = number.ToString();
         }
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             string gelenveri = serialPort1.ReadExisting();
             textBox2.Invoke(new verigoster(textyaz),gelenveri);
+            number++;
+            
         }
     }
 }
